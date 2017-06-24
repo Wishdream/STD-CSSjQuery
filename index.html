@@ -25,29 +25,6 @@
 		</form>
 	</div>
 
-	<script type="text/javascript">
-
-		$(document).ready(
-			function() {
-				$('form').submit(
-					function(e) {
-						e.preventDefault();
-						$('#saveModal').modal('show');
-	    			}
-	    		);
-
-	    		$('.btn-login').click(
-	    			function(e) {
-						e.preventDefault();
-						$('#saveModal').modal('hide');
-						$('#successModal').modal('show');
-					}
-				)
-			}
-		);
-
-	</script>
-
 	<div id="saveModal" class="modal fade">
 		<div class="modal-dialog">
 		    <div class="modal-content">
@@ -89,6 +66,29 @@
 		    </div>
 		</div>
 	</div>
+	
+	<script type="text/javascript">
+
+		$(document).ready(
+			function() {
+				$('form').submit(
+					function(e) {
+						e.preventDefault();
+						$('#saveModal').modal('show');
+	    			}
+	    		);
+
+	    		$('.btn-login').click(
+	    			function(e) {
+						e.preventDefault();
+						$('#saveModal').modal('hide');
+						$('#successModal').modal('show');
+					}
+				)
+			}
+		);
+
+	</script>
 
 </body>
 
