@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Sign Up</title>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+	<script type="text/javascript" src="js/bootstrap.min.js"> </script>
+</head>
+
+<body>
+	<div class="container">
+		<div id="successMsg" class="alert alert-success hide" role="alert">
+			Registration Successful!
+		</div>
+	  	<form>
+	  		<input type="hidden" id="inputID" value="12022268">
+	  		<h3>Sign up for free!</h3>
+	  		<div class="row">
+	  			<div class="form-group col-md-6">
+	    			<input class="form-control" id="inputFirstName" placeholder="First Name*" required>
+	  			</div>
+	  			<div class="form-group col-md-6">
+		    		<input class="form-control" id="inputLastName" placeholder="Last Name*" required>
+		  		</div>
+	  		</div>
+	  		<div class="form-group">
+				<input class="form-control" type="email" id="inputEmail" placeholder="Email Address*" required>
+			</div>
+			<div class="form-group">
+				<input class="form-control" type="password" id="inputPassword" placeholder="Password*" required>
+			</div>
+  			<button class="btn btn-primary pull-right" type="submit">Sign Up</button>
+		</form>
+	</div>
+
+	<div id="saveModal" class="modal fade">
+  		<div class="modal-dialog">
+    		<div class="modal-content">
+      			<div class="modal-header">
+        			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        			<h4 class="modal-title">Confirmation</h4>
+      			</div>
+      			<div class="modal-body">
+        			<p>Are you sure you want to sign-up with the following info?</p>
+        			<div class="userInput"></div>
+     			</div>
+      			<div class="modal-footer">
+        				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+       	 				<button type="button" class="btn btn-primary btn-login">Sign-up!</button>
+      			</div>
+    		</div>
+  		</div>
+	</div>
+
+	<script type="text/javascript">
+	  	// load script when document is ready (all resources loaded)
+		$(document).ready(function() {
+	    // global input variable
+	    var input = {};
+	 
+	    // on form submit
+	    $('form').submit(function(e) {
+	      e.preventDefault();
+	 
+	      var $this = $(this);
+	      // serialize form, for form submission
+	      input = $this.serialize();
+	 
+	      $('#saveModal .userInput').empty();
+	      $('#saveModal .userInput').append(
+	      	$('<p></p>').html('<strong>Name: </strong>' + $('#inputFirstName').val() + ' ' + $('#inputLastName').val())
+	      );
+	      $('#saveModal .userInput').append(
+	      	$('<p></p>').html('<strong>Email: </strong>' + $('#inputEmail').val())
+	      );
+
+	      $('#saveModal').modal('show');
+	    });
+	 
+	    // on btn-login click
+	    $('.btn-login').click(function(e) {
+	      e.preventDefault();
+	      $.ajax({
+	        method: "POST",
+	        url: "http://tolitsdelizo.info/st-activities/jquery/register.php",
+	        data: input
+	      })
+	      .done(function( msg ) {
+	        if (msg == 'OK') {
+	          $('#successMsg').removeClass('hide').show();
+	          $('input[type=text],input[type=email],input[type=password]','form').val(null);
+	          $('#saveModal').modal('hide');
+	        }
+	      });
+	      
+	    });
+	  });
+	</script>
+
+</body>
+
+</html>
